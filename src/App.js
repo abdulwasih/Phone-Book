@@ -21,7 +21,10 @@ function App() {
     event.preventDefault()
     setPhoneList([...phoneList,phonebook])
   }
-  console.log(phoneList)
+
+  const sortedContactList = [...phoneList].sort((a, b) =>
+    a.firstName.localeCompare(b.firstName)
+  );
 
   const handleChange=(event)=>{
     console.log(event.target)
@@ -60,15 +63,23 @@ x        ></input><br></br>
         <button type='submit'>Submit</button>
       </form>
       <table style={tableStyle}>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-        </tr>
-      </table>
-        <tr>
-          
-        </tr>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+        {sortedContactList.map((item,index)=>(
+          <tr key={index} >
+            <td>{item.firstName}</td>
+            <td>{item.lastName}</td>
+            <td>{item.phone}</td>
+          </tr>
+          ))}
+        </tbody>
+        </table>
     </div>
   );
 }
