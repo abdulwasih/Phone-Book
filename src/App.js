@@ -2,18 +2,32 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [firstName,setFirstName] = useState('')
-  const [lastName,setLastName] = useState('')
-  const [phone,setPhone] = useState('')
+  const initialState={
+    firstName:'',
+    lastName:'',
+    phone:''
+  }
+  const [phonebook,setPhonebook] = useState(initialState)
+  
+  const [phoneList, setPhoneList] = useState([])
   //styling
   const tableStyle =  {
     margin: 'auto',
     width: '50%',
     padding: '10px'
 }
+
   const handleSubmit=(event)=>{
     event.preventDefault()
-    console.log(firstName,lastName,phone)
+    setPhoneList([...phoneList,phonebook])
+  }
+  console.log(phoneList)
+
+  const handleChange=(event)=>{
+    console.log(event.target)
+    const { name, value } = event.target;
+    setPhonebook({...phonebook,[name]: value });
+    console.log(phonebook)
   }
 
   return (
@@ -24,23 +38,23 @@ function App() {
         <input
           type='text'
           name='firstName'
-          value={firstName}
-          onChange={(event)=>setFirstName(event.target.value)}
+          value={phonebook.firstName}
+          onChange={handleChange}
         >
         </input><br></br>
         <label>Last Name</label>
         <input
           type='text'
           name='lastName'
-          value={lastName}
-          onChange={(event)=>setLastName(event.target.value)}
+          value={phonebook.lastName}
+          onChange={handleChange}
 x        ></input><br></br>
         <label>Phone</label>
         <input
           type='number'
           name='phone'
-          value={phone}
-          onChange={(event)=>setPhone(event.target.value)}
+          value={phonebook.phone}
+          onChange={handleChange}
         >
         </input><br></br>
         <button type='submit'>Submit</button>
